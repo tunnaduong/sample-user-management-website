@@ -1,4 +1,5 @@
 import React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class Admin extends React.Component {
   }
 
   fetch = () => {
-    fetch("http://tunnaduong.com/test_api/getuser.php?access_token=abc123", {
+    fetch("https://tunnaduong.com/test_api/getuser.php?access_token=abc123", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -22,7 +23,13 @@ export default class Admin extends React.Component {
         this.setState({
           users: response.users_info,
         });
+        this.displayTable();
       });
+  };
+
+  displayTable = () => {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("user-table").style.display = "table";
   };
 
   change = () => {
@@ -46,8 +53,14 @@ export default class Admin extends React.Component {
   render() {
     return (
       <>
+        <div id="overlay">
+          <div className="inner-overlay">
+            <CircularProgress color="inherit" style={{ marginBottom: 10 }} />
+            Đang tải...
+          </div>
+        </div>
         <div className="users-panel">
-          <table>
+          <table id="user-table" style={{ display: "none" }}>
             <thead>
               <tr>
                 <th width="140" style={{ fontWeight: "normal" }}></th>
@@ -82,17 +95,20 @@ export default class Admin extends React.Component {
           </table>
         </div>
         <div className="select-panel">
-          <img src="./arrow.png" />
-          <input onClick={this.selectAll} type="checkbox" id="check-all" />
-          <span onClick={this.change}>Chọn tất cả</span>
-          <a>
-            <i class="fas fa-pencil-alt"></i>&nbsp;Sửa
-          </a>
-          <a>
-            <i class="fas fa-trash-alt"></i>&nbsp;Xóa
-          </a>
+          <div className="left-side">
+            <img src="./arrow.png" />
+            <input onClick={this.selectAll} type="checkbox" id="check-all" />
+            <span onClick={this.change}>Chọn tất cả</span>
+            <a>
+              <i class="fas fa-pencil-alt"></i>&nbsp;Sửa
+            </a>
+            <a>
+              <i class="fas fa-trash-alt"></i>&nbsp;Xóa
+            </a>
+          </div>
           <button>
-            <i class="fas fa-plus"></i> Thêm người dùng
+            <i class="fas fa-plus"></i>
+            <span></span>
           </button>
         </div>
       </>

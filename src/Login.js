@@ -20,7 +20,7 @@ export default class Login extends React.Component {
       password: this.passwordRef.current.value,
     };
 
-    fetch("http://tunnaduong.com/test_api/login.php/", {
+    fetch("https://tunnaduong.com/test_api/login.php/", {
       method: "POST",
       body: JSON.stringify(Data),
       headers: {

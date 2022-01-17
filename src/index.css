@@ -176,7 +176,7 @@ input[type="checkbox"] {
   margin-right: 10px;
 }
 
-.select-panel > img {
+.select-panel > .left-side > img {
   vertical-align: middle;
   margin-right: 0.3em;
   margin-left: -0.2em;
@@ -218,21 +218,26 @@ tr:hover {
   padding: 0 !important;
 }
 
-.select-panel > a {
+.select-panel > .left-side > a {
   margin-left: 20px;
   cursor: pointer;
   text-decoration: none;
   color: #2588cb !important;
 }
 
-.select-panel > span {
+.select-panel > .left-side > span {
   color: #2588cb !important;
   cursor: pointer;
 }
 
 a:hover,
-.select-panel > span:hover {
+.select-panel > .left-side > span:hover,
+.select-panel > .left-side > a:hover {
   text-decoration: underline;
+}
+
+a[href="/logout"]:hover {
+  text-decoration: none;
 }
 
 .select-panel > button {
@@ -243,22 +248,35 @@ a:hover,
   color: white;
   font-size: 14px;
   transition: 200ms all;
-  float: right;
-  margin-top: -4px;
-  margin-right: -5px;
+  cursor: pointer;
 }
 
 .select-panel > button:hover {
-  background-color: rgb(31, 222, 53);
+  background-color: rgb(37, 208, 57);
 }
 
 .select-panel > button:active {
   background-color: rgb(10, 198, 0);
 }
 
+.select-panel > button > span::after {
+  content: "Thêm người dùng";
+}
+
+@media only screen and (max-width: 530px) {
+  .select-panel > button > span::after {
+    content: "";
+  }
+
+  .users-panel {
+    overflow-y: scroll;
+  }
+}
+
 .rot {
   position: relative;
   z-index: 2;
+  padding-bottom: 15px;
 }
 
 #bg {
@@ -278,4 +296,39 @@ a:hover,
   margin: auto;
   min-width: 50%;
   min-height: 50%;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 9; /* Specify a stack order in case you're using a different order for other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: rgb(213, 213, 213);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.select-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.left-side {
+  flex: 1;
 }
